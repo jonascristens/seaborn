@@ -1334,15 +1334,11 @@ class TestLinePlotter(SharedAxesLevelTests, Helpers):
             lineplot(data=long_df, x="x", y="y", ci="sd", ax=axs[1])
         assert_plots_equal(*axs)
 
-    def test_coe(self):
-        import numpy as np
-        import pandas as pd
+    def test_lineplot_2d_dashes(self, long_df):
 
-        import seaborn as sns
-
-        df = pd.DataFrame(np.random.normal(size=(10, 2)))
-
-        sns.lineplot(data=df, dashes=[(5, 5), (10, 10)])
+        ax = lineplot(data=long_df[["x", "y"]], dashes=[(5, 5), (10, 10)])
+        assert ax.get_lines()[0]._us_dashSeq
+        assert ax.get_lines()[3]._us_dashSeq
 
 
 class TestScatterPlotter(SharedAxesLevelTests, Helpers):
